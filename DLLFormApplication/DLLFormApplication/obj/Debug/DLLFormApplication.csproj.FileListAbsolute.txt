@@ -1,0 +1,9 @@
+C:\Users\Dobby\source\repos\DLLFormApplication\DLLFormApplication\bin\Debug\DLLFormApplication.exe.config
+C:\Users\Dobby\source\repos\DLLFormApplication\DLLFormApplication\bin\Debug\DLLFormApplication.exe
+C:\Users\Dobby\source\repos\DLLFormApplication\DLLFormApplication\bin\Debug\DLLFormApplication.pdb
+C:\Users\Dobby\source\repos\DLLFormApplication\DLLFormApplication\obj\Debug\DLLFormApplication.Form1.resources
+C:\Users\Dobby\source\repos\DLLFormApplication\DLLFormApplication\obj\Debug\DLLFormApplication.Properties.Resources.resources
+C:\Users\Dobby\source\repos\DLLFormApplication\DLLFormApplication\obj\Debug\DLLFormApplication.csproj.GenerateResource.cache
+C:\Users\Dobby\source\repos\DLLFormApplication\DLLFormApplication\obj\Debug\DLLFormApplication.csproj.CoreCompileInputs.cache
+C:\Users\Dobby\source\repos\DLLFormApplication\DLLFormApplication\obj\Debug\DLLFormApplication.exe
+C:\Users\Dobby\source\repos\DLLFormApplication\DLLFormApplication\obj\Debug\DLLFormApplication.pdb

@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLLFormApplication", "DLLFormApplication\DLLFormApplication.csproj", "{FCB7D7B7-186F-415B-967D-BA1DF3F4AB9C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		dd|Any CPU = dd|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCB7D7B7-186F-415B-967D-BA1DF3F4AB9C}.dd|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCB7D7B7-186F-415B-967D-BA1DF3F4AB9C}.dd|Any CPU.Build.0 = Debug|Any CPU
+		{FCB7D7B7-186F-415B-967D-BA1DF3F4AB9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCB7D7B7-186F-415B-967D-BA1DF3F4AB9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCB7D7B7-186F-415B-967D-BA1DF3F4AB9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCB7D7B7-186F-415B-967D-BA1DF3F4AB9C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {66FE5EBF-7CE8-4B84-991C-C746791D0C51}
+	EndGlobalSection
+EndGlobal
