@@ -160,7 +160,7 @@ namespace DLLFormApplication
                 return DllInjectionResult.ProcessNotFound;
             }
 
-            if (!bInject(_procId, sDLLPath))
+            if (!RemoteDLLInject(_procId, sDLLPath))
             {
                 return DllInjectionResult.InjectionFailed;
             }
