@@ -137,7 +137,6 @@ namespace DLLFormApplication
         {
             if(!File.Exists(sDLLPath))
             {
-                MessageBox.Show("8 Numaralı hata");
 
                 return DllInjectionResult.DllNotFound;
 
@@ -158,20 +157,102 @@ namespace DLLFormApplication
 
             if (_procId == 0)
             {
-                MessageBox.Show("9 Numaralı hata");
-
                 return DllInjectionResult.ProcessNotFound;
             }
 
             if (!bInject(_procId, sDLLPath))
             {
-                MessageBox.Show("10 Numaralı hata");
                 return DllInjectionResult.InjectionFailed;
             }
 
-            MessageBox.Show("11 Numaralı Başarı");
             return DllInjectionResult.Succes;
         }
+        //Remote DLL 
+        bool RemoteDLLInject(uint pToBeInject, string DllPath)
+        {
+            uint ProcId = pToBeInject;
+            IntPtr Size = (IntPtr)DllPath.Length;
+
+        
+            // Step 1: Get the address of kernel32.dll's exported function: LoadLibraryA
+            IntPtr Kernel32Handle = GetModuleHandle("Kernel32.dll");
+            IntPtr LoadLibraryAAddress = GetProcAddress(Kernel32Handle, "LoadLibraryA");
+
+            if (LoadLibraryAAddress== null)
+            {
+                MessageBox.Show("Could not get address kernel32.dll's LoadLibraryA");
+                return false;
+            }
+
+            // Step 2: Get process handle from the target process
+            try
+            {
+                Process localById = Process.GetProcessById((int)ProcId);
+                string ProcName = localById.ProcessName;
+            }
+            catch (ArgumentException e)
+            {
+                return false;
+            }
+            
+            IntPtr ProcHandle = OpenProcess(ProcessAccessFlags.All, false, (int)ProcId);
+           
+            if (ProcHandle == null)
+            {
+                MessageBox.Show("Could not obtain handle from 'OpenProcess");
+                return false;
+            }
+
+            // Step 3: Allocate space to write the dll location
+            IntPtr DllSpace = VirtualAllocEx(ProcHandle, IntPtr.Zero, Size, AllocationType.Reserve | AllocationType.Commit, MemoryProtection.ExecuteReadWrite);
+
+            if (DllSpace == null)
+            {
+                CloseHandle(ProcHandle);
+                MessageBox.Show(" Could not write DLL location using 'VirtualAllocEx'");
+                return false;
+            }
+
+            // Step 4: Write the dll location to the space we allocated in step 3
+
+            byte[] bytes = Encoding.ASCII.GetBytes(DllPath);
+            bool DllWrite = WriteProcessMemory(ProcHandle, DllSpace, bytes, (int)bytes.Length, out var bytesread);
+
+            if (!DllWrite)
+            {
+                CloseHandle(ProcHandle);
+                MessageBox.Show("Could not write to process memory using 'WPM'");
+                return false;
+            }
+
+            // Step 5: Load the dll using LoadLibraryA from step 1
+
+            IntPtr RemoteThreadHandle;
+            try
+            {
+                RemoteThreadHandle = CreateRemoteThread(ProcHandle, IntPtr.Zero, 0, LoadLibraryAAddress, DllSpace, 0, IntPtr.Zero);
+            }
+            catch (Exception)
+            {
+                RemoteThreadHandle = IntPtr.Zero;
+                throw;
+            }
+
+            if (RemoteThreadHandle == IntPtr.Zero)
+            {
+                CloseHandle(ProcHandle);
+                MessageBox.Show("Could not create a remote thread using 'CreateRemoteThread'");
+                return false;
+            }
+
+            // Step 6: Close handles
+
+            bool FreeDllSpace = VirtualFreeEx(ProcHandle, DllSpace, 0, AllocationType.Release);
+            CloseHandle(RemoteThreadHandle);
+            CloseHandle(ProcHandle);
+            return true;
+        }
+
 
         //Enjekte eden program 
         bool bInject(uint pToBeInject, string DllPath)
